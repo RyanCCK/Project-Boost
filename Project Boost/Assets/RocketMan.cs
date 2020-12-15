@@ -5,10 +5,12 @@ using UnityEngine;
 
 public class RocketMan : MonoBehaviour
 {
+    Rigidbody rigidBody;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        rigidBody = GetComponent<Rigidbody>(); 
     }
 
     // Update is called once per frame
@@ -21,16 +23,16 @@ public class RocketMan : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.Space))
         {
-            print("Thrusting!");
+            rigidBody.AddRelativeForce(Vector3.up);
         }
 
         if (Input.GetKey(KeyCode.RightArrow))
         {
-            print("Rotating Right!");
+            rigidBody.AddRelativeForce(Vector3.right);
         }
         else if (Input.GetKey(KeyCode.LeftArrow))
         {
-            print("Rotating Left!");
+            rigidBody.AddRelativeForce(Vector3.left);
         }
     }
 }
