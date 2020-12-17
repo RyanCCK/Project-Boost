@@ -6,11 +6,13 @@ using UnityEngine;
 public class RocketMan : MonoBehaviour
 {
     Rigidbody rigidBody;
+    AudioSource audioSource;
 
     // Start is called before the first frame update
     void Start()
     {
-        rigidBody = GetComponent<Rigidbody>(); 
+        rigidBody = GetComponent<Rigidbody>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -24,15 +26,20 @@ public class RocketMan : MonoBehaviour
         if (Input.GetKey(KeyCode.Space))
         {
             rigidBody.AddRelativeForce(Vector3.up);
+            if (!audioSource.isPlaying)
+            {
+                audioSource.Play();
+            }
         }
+        else audioSource.Stop();
 
         if (Input.GetKey(KeyCode.RightArrow))
         {
-            rigidBody.AddRelativeForce(Vector3.right);
+            transform.Rotate(Vector3.back);
         }
         else if (Input.GetKey(KeyCode.LeftArrow))
         {
-            rigidBody.AddRelativeForce(Vector3.left);
+            transform.Rotate(Vector3.forward);
         }
     }
 }
