@@ -8,20 +8,22 @@ public class RocketMan : MonoBehaviour
     Rigidbody rigidBody;
     AudioSource audioSource;
 
-    // Start is called before the first frame update
+    // Start is called before the first frame update.
     void Start()
     {
         rigidBody = GetComponent<Rigidbody>();
         audioSource = GetComponent<AudioSource>();
     }
 
-    // Update is called once per frame
+    // Update is called once per frame.
     void Update()
     {
-        ProcessInput();
+        Thrust();
+        Rotate();
     }
 
-    private void ProcessInput()
+    // Apply thrust to rocket and play thrust sound effect when space key is pressed.
+    private void Thrust()
     {
         if (Input.GetKey(KeyCode.Space))
         {
@@ -32,6 +34,13 @@ public class RocketMan : MonoBehaviour
             }
         }
         else audioSource.Stop();
+    }
+
+    // Rotate rocket clockwise or counterclockwise when right or left arrow keys are pressed.
+    private void Rotate()
+    {
+        // Freeze physics control of rotation
+        rigidBody.freezeRotation = true;
 
         if (Input.GetKey(KeyCode.RightArrow))
         {
@@ -41,5 +50,8 @@ public class RocketMan : MonoBehaviour
         {
             transform.Rotate(Vector3.forward);
         }
+
+        // Resume physics control of rotation
+        rigidBody.freezeRotation = false;
     }
 }
