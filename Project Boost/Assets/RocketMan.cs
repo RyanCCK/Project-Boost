@@ -8,6 +8,9 @@ public class RocketMan : MonoBehaviour
     Rigidbody rigidBody;
     AudioSource audioSource;
 
+    [SerializeField] float rcsThrust = 100f;
+    [SerializeField] float mainThrust = 4f;
+
     // Start is called before the first frame update.
     void Start()
     {
@@ -27,7 +30,7 @@ public class RocketMan : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.Space))
         {
-            rigidBody.AddRelativeForce(Vector3.up);
+            rigidBody.AddRelativeForce(Vector3.up * mainThrust);
             if (!audioSource.isPlaying)
             {
                 audioSource.Play();
@@ -42,13 +45,15 @@ public class RocketMan : MonoBehaviour
         // Freeze physics control of rotation
         rigidBody.freezeRotation = true;
 
+        float rotationThisFrame = rcsThrust * Time.deltaTime;
+
         if (Input.GetKey(KeyCode.RightArrow))
         {
-            transform.Rotate(Vector3.back);
+            transform.Rotate(Vector3.back * rotationThisFrame);
         }
         else if (Input.GetKey(KeyCode.LeftArrow))
         {
-            transform.Rotate(Vector3.forward);
+            transform.Rotate(Vector3.forward * rotationThisFrame);
         }
 
         // Resume physics control of rotation
