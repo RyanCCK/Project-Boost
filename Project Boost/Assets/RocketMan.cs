@@ -59,4 +59,18 @@ public class RocketMan : MonoBehaviour
         // Resume physics control of rotation
         rigidBody.freezeRotation = false;
     }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        switch (collision.gameObject.tag)
+        {
+            case "Friendly":
+                print("OK");
+                break;
+
+            default:
+                print("Ur dead bitchhh");
+                break;
+        }
+    }
 }
