@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class RocketMan : MonoBehaviour
 {
@@ -65,11 +66,14 @@ public class RocketMan : MonoBehaviour
         switch (collision.gameObject.tag)
         {
             case "Friendly":
-                print("OK");
+                break;
+
+            case "Finish":
+                SceneManager.LoadScene(1);
                 break;
 
             default:
-                print("Ur dead bitchhh");
+                SceneManager.LoadScene(0);
                 break;
         }
     }
