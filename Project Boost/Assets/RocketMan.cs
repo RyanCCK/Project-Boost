@@ -14,9 +14,15 @@ public class RocketMan : MonoBehaviour
 
     [SerializeField] float rcsThrust = 100f;
     [SerializeField] float mainThrust = 4f;
+
     [SerializeField] AudioClip thrustSound;
     [SerializeField] AudioClip deathSound;
     [SerializeField] AudioClip successSound;
+
+    [SerializeField] ParticleSystem leftThrustParticles;
+    [SerializeField] ParticleSystem rightThrustParticles;
+    [SerializeField] ParticleSystem deathParticles;
+    [SerializeField] ParticleSystem successParticles;
 
     float nextSceneLoadTime = 1.5f;
     float deathTime = 1.5f;
@@ -46,6 +52,8 @@ public class RocketMan : MonoBehaviour
             ApplyThrust();
         }
         else audioSource.Stop();
+        leftThrustParticles.Stop();
+        rightThrustParticles.Stop();
     }
 
     private void ApplyThrust()
@@ -55,6 +63,8 @@ public class RocketMan : MonoBehaviour
         {
             audioSource.PlayOneShot(thrustSound);
         }
+        leftThrustParticles.Play();
+        rightThrustParticles.Play();
     }
 
     // Rotate rocket clockwise or counterclockwise when right or left arrow keys are pressed.
@@ -107,6 +117,7 @@ public class RocketMan : MonoBehaviour
         state = State.Progressing;
         audioSource.Stop();
         audioSource.PlayOneShot(successSound);
+        successParticles.Play();
         Invoke("LoadNextScene", nextSceneLoadTime);
     }
 
@@ -116,6 +127,7 @@ public class RocketMan : MonoBehaviour
         state = State.Dying;
         audioSource.Stop();
         audioSource.PlayOneShot(deathSound);
+        deathParticles.Play();
         Invoke("LoadFirstScene", deathTime);
     }
 
