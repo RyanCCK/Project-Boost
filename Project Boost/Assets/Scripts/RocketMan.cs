@@ -58,7 +58,7 @@ public class RocketMan : MonoBehaviour
 
     private void ApplyThrust()
     {
-        rigidBody.AddRelativeForce(Vector3.up * mainThrust);
+        rigidBody.AddRelativeForce(Vector3.up * mainThrust * Time.deltaTime);
         if (!audioSource.isPlaying)
         {
             audioSource.PlayOneShot(thrustSound);
@@ -118,7 +118,8 @@ public class RocketMan : MonoBehaviour
         audioSource.Stop();
         audioSource.PlayOneShot(successSound);
         successParticles.Play();
-        Invoke("LoadNextScene", nextSceneLoadTime);
+        //Invoke("LoadNextScene", nextSceneLoadTime);
+        Invoke("LoadFirstScene", nextSceneLoadTime);    //Only 1 scene exists, so reload it on win. ONLY FOR BETA BUILD
     }
 
     // Handle all events that occur when the player dies.
